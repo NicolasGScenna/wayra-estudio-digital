@@ -1,0 +1,60 @@
+
+.waves {
+  position: absolute;
+  z-index: 2;
+
+  width: 135%;
+  height: 112%;
+
+  right: -8%;
+  bottom: -17%;
+
+  overflow: visible;
+  pointer-events: none;
+
+  color: #d5e2d6;
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 17%,
+    black 38%,
+    black 100%
+  );
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 17%,
+    black 38%,
+    black 100%
+  );
+}
+
+.wave {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 768px) {
+  .waves {
+    width: 175%;
+    height: 90%;
+
+    right: -55%;
+    bottom: -10%;
+  }
+
+  .wave {
+    stroke-width: 1.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waves {
+    animation: none;
+  }
+}

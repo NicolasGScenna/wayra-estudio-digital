@@ -1,0 +1,124 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--foreground-light);
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  width: min(1320px, calc(100% - 12%));
+  min-height: calc(100svh - 120px);
+  margin: 0 auto;
+  padding-bottom: 55px;
+  display: flex;
+  align-items: center;
+}
+
+.copy {
+  max-width: 720px;
+  padding-top: 15px;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 28px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  color: #c1d0c2;
+}
+
+.copy h1 {
+  margin: 0;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: clamp(64px, 8vw, 116px);
+  font-weight: 400;
+  letter-spacing: -0.075em;
+  line-height: 0.94;
+}
+
+.copy h1 span {
+  color: #c1d0c2;
+}
+
+.copy p {
+  max-width: 410px;
+  margin-top: 32px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(244, 241, 236, 0.82);
+}
+
+.button {
+  width: fit-content;
+  margin-top: 34px;
+  padding: 13px 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid rgba(244, 241, 236, 0.65);
+  border-radius: 30px;
+  color: var(--foreground-light);
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 13px;
+  transition:
+    background 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+.button:hover {
+  background: var(--foreground-light);
+  border-color: var(--foreground-light);
+  color: var(--wayra-deep);
+}
+
+.bottomLabel {
+  position: absolute;
+  z-index: 4;
+  right: 6%;
+  bottom: 35px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: rgba(244, 241, 236, 0.7);
+}
+
+@media (max-width: 768px) {
+  .content {
+    width: calc(100% - 48px);
+    min-height: calc(100svh - 100px);
+    padding-bottom: 65px;
+  }
+
+  .copy h1 {
+    font-size: clamp(58px, 11vw, 86px);
+  }
+
+  .copy p {
+    max-width: 340px;
+    font-size: 14px;
+  }
+
+  .bottomLabel {
+    right: 24px;
+    bottom: 22px;
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 480px) {
+  .copy h1 {
+    font-size: 58px;
+  }
+
+  .eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.25em;
+  }
+}

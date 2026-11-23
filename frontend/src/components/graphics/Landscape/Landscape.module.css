@@ -1,0 +1,85 @@
+
+.landscape {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  background: #315743;
+}
+
+/* IMAGE */
+
+.picture {
+  position: absolute;
+  inset: -12px;
+  display: block;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  filter: blur(3px);
+  transform: scale(1.035);
+}
+
+/* WAYRA COLOR TREATMENT */
+
+.landscape::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background: linear-gradient(
+    115deg,
+    rgba(49, 87, 67, 0.78) 0%,
+    rgba(73, 107, 84, 0.68) 48%,
+    rgba(32, 61, 46, 0.85) 100%
+  );
+
+  mix-blend-mode: color;
+  opacity: 0.95;
+}
+
+/* ATMOSPHERIC LAYER */
+
+.landscape::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(24, 48, 35, 0.58) 0%,
+      rgba(24, 48, 35, 0.28) 55%,
+      rgba(24, 48, 35, 0.08) 100%
+    ),
+    rgba(49, 87, 67, 0.16);
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .image {
+    object-position: center;
+    filter: blur(4px);
+  }
+
+  .landscape::after {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(24, 48, 35, 0.42) 0%,
+        rgba(24, 48, 35, 0.2) 45%,
+        rgba(24, 48, 35, 0.55) 100%
+      ),
+      rgba(49, 87, 67, 0.16);
+  }
+}
