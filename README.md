@@ -1,17 +1,10 @@
 # WAYRA — Estudio Digital
 
-Sitio de presentación del estudio, construido con Next.js, React, TypeScript y Framer Motion.
+WAYRA es un estudio digital creativo que transforma ideas en soluciones digitales, combinando creatividad, tecnología y diseño.
 
-## Desarrollo local
+## El sitio
 
-```powershell
-cd frontend
-npm install
-npm run dev
-```
-
-La página principal reúne el hero, la presentación del estudio, los servicios y el formulario de contacto.
-
-## Formulario de contacto
-
-El formulario puede abrir un borrador en el cliente de correo del visitante cuando se configura `NEXT_PUBLIC_CONTACT_EMAIL`. El envío directo desde el sitio todavía requiere integrar un proveedor de correo con una función del lado del servidor.
+- **Inicio:** presenta la identidad de WAYRA y su mensaje, “Ideas en movimiento”.
+- **Nosotros:** comparte la forma cercana y natural con la que el estudio aborda cada proyecto.
+- **Servicios:** sistemas de gestión y personalizados, landing pages, portfolios profesionales, e-commerce y páginas web.
+- **Contacto:** formulario desplegable para dejar nombre, correo y mensaje. La recepción de mensajes todavía está pendiente de configuración.
