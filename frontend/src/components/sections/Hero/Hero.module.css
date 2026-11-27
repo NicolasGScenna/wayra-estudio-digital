@@ -25,7 +25,7 @@
 .eyebrow {
   display: block;
   margin-bottom: 28px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.34em;
@@ -34,8 +34,8 @@
 
 .copy h1 {
   margin: 0;
-  font-family: var(--font-space-grotesk), sans-serif;
-  font-size: clamp(64px, 8vw, 116px);
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(67.84px, 8.48vw, 122.96px);
   font-weight: 400;
   letter-spacing: -0.075em;
   line-height: 0.94;
@@ -48,8 +48,8 @@
 .copy p {
   max-width: 410px;
   margin-top: 32px;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: 15px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 16.2px;
   line-height: 1.9;
   color: rgba(244, 241, 236, 0.82);
 }
@@ -64,7 +64,7 @@
   border: 1px solid rgba(244, 241, 236, 0.65);
   border-radius: 30px;
   color: var(--foreground-light);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 13px;
   transition:
     background 250ms ease,
@@ -83,7 +83,7 @@
   z-index: 4;
   right: 6%;
   bottom: 35px;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 9px;
   letter-spacing: 0.3em;
   color: rgba(244, 241, 236, 0.7);
@@ -97,12 +97,12 @@
   }
 
   .copy h1 {
-    font-size: clamp(58px, 11vw, 86px);
+    font-size: clamp(61.48px, 11.66vw, 91.16px);
   }
 
   .copy p {
     max-width: 340px;
-    font-size: 14px;
+    font-size: 15.12px;
   }
 
   .bottomLabel {
@@ -117,8 +117,54 @@
     font-size: 58px;
   }
 
+  .copy p {
+    font-size: 14px;
+  }
+
   .eyebrow {
     font-size: 8px;
     letter-spacing: 0.25em;
+  }
+}
+
+@media (min-width: 481px) {
+  .button {
+    padding: 13.78px 23.32px;
+    gap: 19.08px;
+    border-width: 1.6px;
+    border-color: rgba(244, 241, 236, 0.92);
+    background: rgba(244, 241, 236, 0.06);
+    font-size: 13.78px;
+  }
+
+  .button svg {
+    width: 19.08px;
+    height: 19.08px;
+    stroke-width: 1.9px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+  .copy h1 {
+    font-size: clamp(70.7px, 13.4vw, 112px);
+  }
+
+  .copy p {
+    font-size: 18px;
+  }
+
+  .button {
+    padding: 17px 29px;
+    gap: 22px;
+    border-width: 2.2px;
+    border-color: rgba(244, 241, 236, 1);
+    background: rgba(244, 241, 236, 0.12);
+    font-size: 18px;
+  }
+
+  .button svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.2px;
   }
 }

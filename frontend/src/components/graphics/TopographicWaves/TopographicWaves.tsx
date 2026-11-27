@@ -1,58 +1,91 @@
-
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+
 import styles from "./TopographicWaves.module.css";
 
-// Tres recorridos diferentes para evitar que todas las líneas
-// repitan la misma geometría.
-const wavePatterns = [
-  {
-    id: "flow-a",
-    path: `
-      M 250 760
-      C 500 620, 420 500, 700 420
-      C 920 350, 780 240, 1050 220
-      C 1260 200, 1180 360, 1390 330
-      C 1510 310, 1550 250, 1740 205
-    `,
-  },
-  {
-    id: "flow-b",
-    path: `
-      M 100 760
-      C 330 650, 560 730, 650 560
-      C 740 390, 570 350, 800 300
-      C 990 250, 1050 420, 1200 350
-      C 1340 280, 1270 170, 1450 160
-      C 1570 150, 1620 230, 1740 190
-    `,
-  },
-  {
-    id: "flow-c",
-    path: `
-      M 330 760
-      C 520 540, 720 700, 820 520
-      C 900 370, 760 260, 980 250
-      C 1180 240, 1190 470, 1380 410
-      C 1530 360, 1500 240, 1740 220
-    `,
-  },
-{
-  id: "flow-d",
-  path: `
-    M 760 760
-    C 940 610, 1080 700, 1120 520
-    C 1160 360, 980 300, 1160 230
-    C 1330 170, 1390 350, 1510 300
-    C 1640 245, 1570 145, 1780 115
-  `,
-},
+type WindField = {
+  id: string;
+  startX: number;
+  endX: number;
+  startY: number;
+  rise: number;
+  amplitude: number;
+  detail: number;
+  phase: number;
+  count: number;
+  opacity: number;
+};
 
+const windFields: WindField[] = [
+  {
+    id: "breeze-a",
+    startX: -700,
+    endX: 2050,
+    startY: 200,
+    rise: 310,
+    amplitude: 54,
+    detail: 17,
+    phase: 0.4,
+    count: 9,
+    opacity: 0.52,
+  },
+  {
+    id: "breeze-b",
+    startX: -900,
+    endX: 2100,
+    startY: 120,
+    rise: 360,
+    amplitude: 50,
+    detail: 20,
+    phase: 2.4,
+    count: 9,
+    opacity: 0.46,
+  },
+  {
+    id: "breeze-c",
+    startX: -600,
+    endX: 1900,
+    startY: 270,
+    rise: 270,
+    amplitude: 46,
+    detail: 14,
+    phase: 4.2,
+    count: 9,
+    opacity: 0.5,
+  },
 ];
 
-const linesPerPattern = 5;
-const lineSpacing = 14;
+function makeWindPath(field: WindField, lineIndex: number) {
+  const sampleCount = 72;
+  const lineOffset = lineIndex * 14;
+  const linePhase = field.phase + lineIndex * 0.035;
+  const points = Array.from({ length: sampleCount }, (_, index) => {
+    const progress = index / (sampleCount - 1);
+    const x = field.startX + (field.endX - field.startX) * progress;
+    const broadWave = Math.sin(progress * Math.PI * 3.4 + linePhase) * field.amplitude;
+    const fineWave = Math.sin(progress * Math.PI * 9 + linePhase * 0.72) * field.detail;
+    const leftwardDrop = 180 * (1 - progress) ** 2;
+    const y =
+      field.startY +
+      progress * field.rise +
+      broadWave +
+      fineWave +
+      lineOffset +
+      leftwardDrop;
+
+    return `${index === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
+  });
+
+  return points.join(" ");
+}
+
+const windFieldsWithPaths = windFields.map((field) => ({
+  ...field,
+  paths: Array.from({ length: field.count }, (_, lineIndex) =>
+    makeWindPath(field, lineIndex),
+  ),
+}));
 
 export default function TopographicWaves() {
   const shouldReduceMotion = useReducedMotion();
@@ -85,26 +118,27 @@ export default function TopographicWaves() {
         },
       };
 
+  const initial = shouldReduceMotion ? false : { opacity: 0, y: 18 };
+
   return (
     <motion.svg
       className={styles.waves}
       viewBox="0 0 1600 700"
       preserveAspectRatio="xMidYMid slice"
-      initial={{ opacity: 0, y: 18 }}
+      initial={initial}
       animate={{ opacity: 0.85, y: 0 }}
-      transition={{ duration: 1.8, ease: "easeOut" }}
+      transition={{ duration: shouldReduceMotion ? 0 : 1.8, ease: "easeOut" }}
       aria-hidden="true"
     >
       <motion.g {...firstMovement}>
-        {wavePatterns.slice(0, 2).map((pattern, patternIndex) => (
-          <g key={pattern.id}>
-            {Array.from({ length: linesPerPattern }, (_, index) => (
+        {windFieldsWithPaths.slice(0, 2).map((field) => (
+          <g key={field.id}>
+            {field.paths.map((path, lineIndex) => (
               <path
-                key={`${pattern.id}-${index}`}
-                d={pattern.path}
-                transform={`translate(0 ${index * lineSpacing})`}
+                key={`${field.id}-${lineIndex}`}
+                d={path}
                 className={styles.wave}
-                opacity={0.48 - index * 0.045 - patternIndex * 0.04}
+                opacity={field.opacity - lineIndex * 0.008}
               />
             ))}
           </g>
@@ -112,35 +146,19 @@ export default function TopographicWaves() {
       </motion.g>
 
       <motion.g {...secondMovement}>
-        {wavePatterns.slice(2).map((pattern) => (
-          <g key={pattern.id}>
-            {Array.from({ length: linesPerPattern }, (_, index) => (
+        {windFieldsWithPaths.slice(2).map((field) => (
+          <g key={field.id}>
+            {field.paths.map((path, lineIndex) => (
               <path
-                key={`${pattern.id}-${index}`}
-                d={pattern.path}
-                transform={`translate(0 ${index * lineSpacing})`}
+                key={`${field.id}-${lineIndex}`}
+                d={path}
                 className={styles.wave}
-                opacity={0.34 - index * 0.035}
+                opacity={field.opacity - lineIndex * 0.008}
               />
             ))}
           </g>
         ))}
       </motion.g>
-      <motion.g {...firstMovement}>
-  {wavePatterns.slice(3).map((pattern) => (
-    <g key={pattern.id}>
-      {Array.from({ length: linesPerPattern }, (_, index) => (
-        <path
-          key={`${pattern.id}-${index}`}
-          d={pattern.path}
-          transform={`translate(0 ${index * lineSpacing})`}
-          className={styles.wave}
-          opacity={0.38 - index * 0.035}
-        />
-      ))}
-    </g>
-  ))}
-</motion.g>
     </motion.svg>
   );
 }
